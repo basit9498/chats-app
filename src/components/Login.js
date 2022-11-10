@@ -10,10 +10,15 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { ChatStore } from "../context/AppContext";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const nagivation = useNavigate();
+  const { setUser } = ChatStore();
+  const [email, setEmail] = useState("test3@gmail.com");
+  const [password, setPassword] = useState("12345678");
   const [showPassword, setShowPassword] = useState(false);
   //   const testAPI = async () => {
   //     const data = await axios.get(`${process.env.REACT_APP_BASE_API_URL}/chat`);
@@ -31,7 +36,15 @@ const Login = () => {
       }
     );
     console.log("data aapi", data);
+    if (data?.status === 200) {
+      console.log("data?.data?.user_data", data?.data?.user_data);
+      localStorage.setItem("user_token", data?.data?.token);
+      localStorage.setItem("user_data", JSON.stringify(data?.data?.user_data));
+      setUser(data?.data?.user_data);
+      nagivation("/chat");
+    }
   };
+
   return (
     <VStack spacing={"12px"}>
       <FormControl id="email" isRequired>
@@ -40,7 +53,7 @@ const Login = () => {
           placeholder="Enter Your Email"
           value={email}
           onChange={(e) => {
-            setEmail(e.email.value);
+            setEmail(e.target.value);
           }}
         />
       </FormControl>

@@ -11,17 +11,22 @@ import {
 import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Login from "../../components/Login";
 import SignUp from "../../components/SignUp";
+import { ChatStore } from "../../context/AppContext";
 
 const Index = () => {
-  //   const testAPI = async () => {
-  //     const data = await axios.get(`${process.env.REACT_APP_BASE_API_URL}/chat`);
-  //     console.log("data aapi", data);
-  //   };
-  //   useEffect(() => {
-  //     testAPI();
-  //   }, []);
+  const nagivation = useNavigate();
+  const { setUser } = ChatStore();
+  useEffect(() => {
+    if (localStorage.getItem("user_token")) {
+      console.log("JSON", JSON.parse(localStorage.getItem("user_data")));
+      setUser(JSON.parse(localStorage.getItem("user_data")));
+      nagivation("/chat");
+    }
+    setUser(JSON.parse(localStorage.getItem("user_data")));
+  }, []);
   return (
     <Container maxW={"xl"} centerContent>
       <Box

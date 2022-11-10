@@ -41,11 +41,11 @@ const Profile = ({ user, children }) => {
             d="flex"
             justifyContent="center"
           >
-            User Name
+            {user?.name}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody
-            d="flex"
+            display="flex"
             flexDir="column"
             alignItems="center"
             justifyContent="space-between"
@@ -53,6 +53,7 @@ const Profile = ({ user, children }) => {
             <Image
               borderRadius="full"
               boxSize="150px"
+              src="https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
               //   src={user.pic}
               //   alt={user.name}
             />
@@ -60,7 +61,7 @@ const Profile = ({ user, children }) => {
               fontSize={{ base: "28px", md: "30px" }}
               fontFamily="Work sans"
             >
-              Email:
+              {user?.email}
             </Text>
           </ModalBody>
 
